@@ -20,6 +20,9 @@
             padding: 0;
             margin: 0;
         }
+        .leaflet-popup-content > table img {
+            width: 270px;
+        }
         </style>
         <title></title>
     </head>
@@ -345,17 +348,41 @@
         document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
         .className += ' fa fa-search';
         document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
-        .title += 'Search for a place';
+        .title += 'Cari tempat';
         var baseMaps = {};
-        L.control.layers(baseMaps,{'Pohon Adopsi Minastahura<br /><table><tr><td style="text-align: center;"><img src="legend/PohonAdopsiMinastahura_4_2542cm0.png" /></td><td>25 - 42 cm</td></tr><tr><td style="text-align: center;"><img src="legend/PohonAdopsiMinastahura_4_4253cm1.png" /></td><td>42 - 53 cm</td></tr><tr><td style="text-align: center;"><img src="legend/PohonAdopsiMinastahura_4_5391cm2.png" /></td><td>53 - 91 cm</td></tr></table>': cluster_PohonAdopsiMinastahura_4,'<img src="legend/BatasKawasanTahuraSultanSyarifQasim_3.png" /> Batas Kawasan Tahura Sultan Syarif Qasim': layer_BatasKawasanTahuraSultanSyarifQasim_3,"Google Satellite": layer_GoogleSatellite_2,"Google Terrain": layer_GoogleTerrain_1,"OSM Standard": layer_OSMStandard_0,}).addTo(map);
+        L.control.layers(baseMaps,{'Pohon Adopsi Minastahura<br /><table><tr><td style="text-align: center;"><img src="legend/PohonAdopsiMinastahura_4_2542cm0.png" /></td><td>25 - 42 cm</td></tr><tr><td style="text-align: center;"><img src="legend/PohonAdopsiMinastahura_4_4253cm1.png" /></td><td>42 - 53 cm</td></tr><tr><td style="text-align: center;"><img src="legend/PohonAdopsiMinastahura_4_5391cm2.png" /></td><td>53 - 91 cm</td></tr></table>': cluster_PohonAdopsiMinastahura_4,'<img src="legend/BatasKawasanTahuraSultanSyarifQasim_3.png" /> Batas Kawasan Tahura Sultan Syarif Qasim': layer_BatasKawasanTahuraSultanSyarifQasim_3,"Peta Dasar (Google Satellite)": layer_GoogleSatellite_2,"Peta Dasar (Google Terrain)": layer_GoogleTerrain_1,"Peta Dasar (OSM Standard)": layer_OSMStandard_0,}).addTo(map);
         setBounds();
         map.addControl(new L.Control.Search({
             layer: cluster_PohonAdopsiMinastahura_4,
             initial: false,
             hideMarkerOnCollapse: true,
-            propertyName: 'kode_pohon'}));
+            textPlaceholder: 'Cari berdasarkan kode pohon',
+            propertyName: 'kode_pohon',
+            zoom: 22}));
         document.getElementsByClassName('search-button')[0].className +=
          ' fa fa-binoculars';
+        map.addControl(new L.Control.Search({
+            layer: cluster_PohonAdopsiMinastahura_4,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            textPlaceholder: 'Cari berdasarkan nama pohon',
+            propertyName: 'nama_lokal',
+            zoom: 22}));
+        document.getElementsByClassName('search-button')[1].className +=
+         ' fa fa-binoculars';
+        L.Control.Watermark=L.Control.extend({
+            onAdd:function(map){
+                var img = L.DomUtil.create('img');
+                img.src = 'logo_dislhkriau_kphminastahura.png';
+                img.style.width = '300px';
+                return img;
+            },
+            onRemove:function(map){},
+        });
+        L.control.watermark = function(opts){
+            return new L.Control.Watermark(opts);
+        }
+        L.control.watermark({position: 'bottomright'}).addTo(map);
         </script>
     </body>
 </html>
