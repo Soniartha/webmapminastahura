@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/MarkerCluster.css">
+        <link rel="stylesheet" href="css/MarkerCluster.Default.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="js/leaflet.markercluster.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="data/BatasKawasanTahuraSultanSyarifQasim_3.js"></script>
+        <script src="data/PohonAdopsiMinastahura_4.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[0.6551288947437035,101.38715079927094],[0.724337742675293,101.48667730902262]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_OSMStandard_0');
+        map.getPane('pane_OSMStandard_0').style.zIndex = 400;
+        var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_OSMStandard_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OSMStandard_0;
+        map.addLayer(layer_OSMStandard_0);
+        map.createPane('pane_GoogleTerrain_1');
+        map.getPane('pane_GoogleTerrain_1').style.zIndex = 401;
+        var layer_GoogleTerrain_1 = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleTerrain_1',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleTerrain_1;
+        map.addLayer(layer_GoogleTerrain_1);
+        map.createPane('pane_GoogleSatellite_2');
+        map.getPane('pane_GoogleSatellite_2').style.zIndex = 402;
+        var layer_GoogleSatellite_2 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatellite_2',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleSatellite_2;
+        map.addLayer(layer_GoogleSatellite_2);
+        function pop_BatasKawasanTahuraSultanSyarifQasim_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Provinsi</th>\
+                        <td>' + (feature.properties['provinsi'] !== null ? autolinker.link(feature.properties['provinsi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Kabupaten</th>\
+                        <td>' + (feature.properties['kabupat'] !== null ? autolinker.link(feature.properties['kabupat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Jenis KPH</th>\
+                        <td>' + (feature.properties['jenis_kph'] !== null ? autolinker.link(feature.properties['jenis_kph'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Unit KPH</th>\
+                        <td>' + (feature.properties['unit_kph'] !== null ? autolinker.link(feature.properties['unit_kph'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nama KPH</th>\
+                        <td>' + (feature.properties['nama_kph'] !== null ? autolinker.link(feature.properties['nama_kph'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Fungsi Kawasan</th>\
+                        <td>' + (feature.properties['fungsi_kws'] !== null ? autolinker.link(feature.properties['fungsi_kws'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Luas (ha)</th>\
+                        <td>' + (feature.properties['luas_ha'] !== null ? autolinker.link(feature.properties['luas_ha'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nomor SK</th>\
+                        <td>' + (feature.properties['sk_mdl'] !== null ? autolinker.link(feature.properties['sk_mdl'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tanggal SK Penetapan</th>\
+                        <td>' + (feature.properties['tgl_sk_mdl'] !== null ? autolinker.link(feature.properties['tgl_sk_mdl'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_BatasKawasanTahuraSultanSyarifQasim_3_0() {
+            return {
+                pane: 'pane_BatasKawasanTahuraSultanSyarifQasim_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(135,116,158,0.2980392156862745)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_BatasKawasanTahuraSultanSyarifQasim_3');
+        map.getPane('pane_BatasKawasanTahuraSultanSyarifQasim_3').style.zIndex = 403;
+        map.getPane('pane_BatasKawasanTahuraSultanSyarifQasim_3').style['mix-blend-mode'] = 'normal';
+        var layer_BatasKawasanTahuraSultanSyarifQasim_3 = new L.geoJson(json_BatasKawasanTahuraSultanSyarifQasim_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_BatasKawasanTahuraSultanSyarifQasim_3',
+            layerName: 'layer_BatasKawasanTahuraSultanSyarifQasim_3',
+            pane: 'pane_BatasKawasanTahuraSultanSyarifQasim_3',
+            onEachFeature: pop_BatasKawasanTahuraSultanSyarifQasim_3,
+            style: style_BatasKawasanTahuraSultanSyarifQasim_3_0,
+        });
+        bounds_group.addLayer(layer_BatasKawasanTahuraSultanSyarifQasim_3);
+        map.addLayer(layer_BatasKawasanTahuraSultanSyarifQasim_3);
+        function pop_PohonAdopsiMinastahura_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Kode Pohon</th>\
+                        <td>' + (feature.properties['kode_pohon'] !== null ? autolinker.link(feature.properties['kode_pohon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nama Pohon</th>\
+                        <td>' + (feature.properties['nama_lokal'] !== null ? autolinker.link(feature.properties['nama_lokal'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nama Latin</th>\
+                        <td>' + (feature.properties['nama_latin'] !== null ? autolinker.link(feature.properties['nama_latin'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tipe Pohon</th>\
+                        <td>' + (feature.properties['tipe_pohon'] !== null ? autolinker.link(feature.properties['tipe_pohon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Status IUCN</th>\
+                        <td>' + (feature.properties['status_iucn'] !== null ? autolinker.link(feature.properties['status_iucn'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Diameter (cm)</th>\
+                        <td>' + (feature.properties['diameter_cm'] !== null ? autolinker.link(feature.properties['diameter_cm'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tinggi (m)</th>\
+                        <td>' + (feature.properties['tinggi_m'] !== null ? autolinker.link(feature.properties['tinggi_m'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Jarak dari Permukiman (km)</th>\
+                        <td>' + (feature.properties['jarak_permukiman'] !== null ? autolinker.link(feature.properties['jarak_permukiman'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Koordinat Latitude</th>\
+                        <td>' + (feature.properties['latitude'] !== null ? autolinker.link(feature.properties['latitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Koordinat Longitude</th>\
+                        <td>' + (feature.properties['longitude'] !== null ? autolinker.link(feature.properties['longitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nama Khas Wilayah</th>\
+                        <td>' + (feature.properties['nama_khas'] !== null ? autolinker.link(feature.properties['nama_khas'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nama Surveyor</th>\
+                        <td>' + (feature.properties['nama_surveyor'] !== null ? autolinker.link(feature.properties['nama_surveyor'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tanggal Survei</th>\
+                        <td>' + (feature.properties['jadwal_survei'] !== null ? autolinker.link(feature.properties['jadwal_survei'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Serapan Karbon (kg)</th>\
+                        <td>' + (feature.properties['serapan_karbon_kgC'] !== null ? autolinker.link(feature.properties['serapan_karbon_kgC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Metode Perhitungan Karbon</th>\
+                        <td>' + (feature.properties['metode_karbon'] !== null ? autolinker.link(feature.properties['metode_karbon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Harga Adopsi</th>\
+                        <td>' + (feature.properties['harga_adopsi'] !== null ? autolinker.link(feature.properties['harga_adopsi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Status Adopsi</th>\
+                        <td>' + (feature.properties['status_adopsi'] !== null ? autolinker.link(feature.properties['status_adopsi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nama Pengadopsi</th>\
+                        <td>' + (feature.properties['nama_pengadopsi'] !== null ? autolinker.link(feature.properties['nama_pengadopsi'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Masa Berlaku</th>\
+                        <td>' + (feature.properties['masa_berlaku'] !== null ? autolinker.link(feature.properties['masa_berlaku'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Foto Label</strong><br />' + (feature.properties['foto_1'] !== null ? '<img src="images/' + String(feature.properties['foto_1']).replace(/[\\\/:]/g, '_').trim() + '">' : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Foto Pohon</strong><br />' + (feature.properties['foto_3'] !== null ? '<img src="images/' + String(feature.properties['foto_3']).replace(/[\\\/:]/g, '_').trim() + '">' : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_PohonAdopsiMinastahura_4_0(feature) {
+            if (feature.properties['diameter_cm'] >= 25.000000 && feature.properties['diameter_cm'] <= 42.000000 ) {
+                return {
+                pane: 'pane_PohonAdopsiMinastahura_4',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(50,87,128,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,1,1,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['diameter_cm'] >= 42.000000 && feature.properties['diameter_cm'] <= 53.000000 ) {
+                return {
+                pane: 'pane_PohonAdopsiMinastahura_4',
+                radius: 9.0,
+                opacity: 1,
+                color: 'rgba(50,87,128,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,208,1,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['diameter_cm'] >= 53.000000 && feature.properties['diameter_cm'] <= 91.000000 ) {
+                return {
+                pane: 'pane_PohonAdopsiMinastahura_4',
+                radius: 12.0,
+                opacity: 1,
+                color: 'rgba(50,87,128,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,250,75,0.8862745098039215)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_PohonAdopsiMinastahura_4');
+        map.getPane('pane_PohonAdopsiMinastahura_4').style.zIndex = 404;
+        map.getPane('pane_PohonAdopsiMinastahura_4').style['mix-blend-mode'] = 'normal';
+        var layer_PohonAdopsiMinastahura_4 = new L.geoJson(json_PohonAdopsiMinastahura_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PohonAdopsiMinastahura_4',
+            layerName: 'layer_PohonAdopsiMinastahura_4',
+            pane: 'pane_PohonAdopsiMinastahura_4',
+            onEachFeature: pop_PohonAdopsiMinastahura_4,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_PohonAdopsiMinastahura_4_0(feature));
+            },
+        });
+        var cluster_PohonAdopsiMinastahura_4 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_PohonAdopsiMinastahura_4.addLayer(layer_PohonAdopsiMinastahura_4);
+
+        bounds_group.addLayer(layer_PohonAdopsiMinastahura_4);
+        cluster_PohonAdopsiMinastahura_4.addTo(map);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Pohon Adopsi Minastahura<br /><table><tr><td style="text-align: center;"><img src="legend/PohonAdopsiMinastahura_4_2542cm0.png" /></td><td>25 - 42 cm</td></tr><tr><td style="text-align: center;"><img src="legend/PohonAdopsiMinastahura_4_4253cm1.png" /></td><td>42 - 53 cm</td></tr><tr><td style="text-align: center;"><img src="legend/PohonAdopsiMinastahura_4_5391cm2.png" /></td><td>53 - 91 cm</td></tr></table>': cluster_PohonAdopsiMinastahura_4,'<img src="legend/BatasKawasanTahuraSultanSyarifQasim_3.png" /> Batas Kawasan Tahura Sultan Syarif Qasim': layer_BatasKawasanTahuraSultanSyarifQasim_3,"Google Satellite": layer_GoogleSatellite_2,"Google Terrain": layer_GoogleTerrain_1,"OSM Standard": layer_OSMStandard_0,}).addTo(map);
+        setBounds();
+        map.addControl(new L.Control.Search({
+            layer: cluster_PohonAdopsiMinastahura_4,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'kode_pohon'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        </script>
+    </body>
+</html>
